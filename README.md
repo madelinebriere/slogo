@@ -12,6 +12,20 @@ March 2nd, 2017 (2nd sprint)
 March 9th, 2017 (3rd sprint)
 
 **Number of hours:** 300 hours
+## Overview:
+
+This project addresses the creation of Integrated Development Environments, using the simplified “coding” language Logo. In this project, we will be creating a user-friendly coding environment supporting a simple coding language that is used by beginners. Sample commands and expressions are as follows:
+>
+FORWARD 50
+SUBTRACT X Y
+PENUP (Returns a boolean)
+>
+
+Within this IDE, the user is able to interact with a simulation -- in most instances of this particular program, this simulation is just a single display with a turtle at the center. Commands can control this turtle, moving it forward a certain number of steps, changing its speed, etc. 
+
+With time, the user should be able to extend the environment, adding on user-defined commands and adding complexity to an initially simple environment. This means that we must add capabilities extending across a wide spectrum. On one hand, we must make the IDE extremely intuitive for beginners. On the other hand, it must be possible to build upon the basic framework of our program to develop and more complex program. This will require flexibility in the addition of new commands (meaning that commands cannot be hard-coded and must be added almost like entries in a dictionary). It will also require that the system be able to expand and grow WHILE running -- it must be able to incorporate user input to “learn.”
+
+The closed elements of this design will be the items “higher on the totem pole.” Abstract superclasses like Actor, Instruction, Simulation, etc. will not be changeable -- adding a new instruction or actor type will not require modification of these superclasses. Rather, these superclasses will be extended to produce new functionalities. For instance, if a new type of actor were to be added to the simulation, we could extend the superclass Actor in this new class to inherit already existing functionality and add on new functionality. This new Actor would be a sibling to the already existing Turtle class. Similarly, adding a new instruction type will not require modification to the Instruction class. Rather, the new Instruction type will be create and extend the Instruction class, allowing for extension without modification of the initial framework. 
 
 ## Roles:
 1. **Maddie** worked on the backend, writing the main engine for interpretation (Interpreter). She wrote all of the code controlling the backend, starting from when the string command was passed to the backend (non-processed and non-error checked) and ending with the execution of the line. This required the deconstruction of the input into a tree of instruction nodes (holding data and child nodes to display relevant argument relationships), the reading of this tree (using post-order traversal) and the construction of corresponding instructions (which then had to be executed). Several helper classes had to be created to facilitate this process, most notably: InstructionNode, InstructionClassifier, TreeBuilder and TreeExecuter. This included many utility classes as well (such as Argument Reader). She also created the resource files in the interpreter resources folder to flexibly assist the interpreter. In addition, she completed the more complicated commands (the entire Miscellaneous package), including making user-defined functions, executing user-defined functions, making variables, etc. This required the creation of helper classes such as FunctionData and VariableData. In the last sprint, a new component was added to the interpreter for increased flexibility: the BuilderUtil set of classes. These subclasses describe a unique way to “pre-process” certain relevant and more complex nodes. She used these classes to accommodate groupings, lists and recursion.
